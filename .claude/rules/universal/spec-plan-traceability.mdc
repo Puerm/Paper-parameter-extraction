@@ -1,0 +1,105 @@
+---
+description: "规格、设计、计划、实现、验证和归档之间的轻量追溯规则"
+globs: ["docs/**/*.md", "specs/**/*.md", "plans/**/*.md", "changes/**/*.md", "openspec/**/*.md"]
+alwaysApply: false
+---
+
+# 规格与计划追溯规则
+
+本规则适用于需要规格、设计、计划、验证或归档记录的非平凡变更。
+
+## 适用范围
+
+优先应用于：
+
+- 新功能开发。
+- 业务逻辑、API、数据模型、权限、安全、金额、时间、身份或事务一致性变更。
+- 跨模块重构、数据迁移、发布门禁或归档任务。
+- 用户明确要求 Design Doc、Spec、Plan、ADR、Trace Matrix 或 Delivery Ready 评估的任务。
+
+以下任务可轻量豁免：拼写修复、注释调整、非行为性文档修订、局部格式调整、不影响运行时行为的小型配置修正。豁免时简要说明原因即可。
+
+## 追溯链路
+
+标准链路：
+
+```text
+Change / Spec
+  -> Design Doc
+  -> Plan
+  -> Implementation
+  -> Tests / Verification
+  -> Archive / Final Status
+```
+
+最低要求：
+
+- Change / Spec 指向 Design Doc 和 Plan。
+- Design Doc 反向指向对应 Change / Spec，并说明关键决策、替代方案、风险和非目标。
+- Plan 指向 Design Doc、base reference、实现范围和验证方式。
+- 实现任务能追溯到 Plan 中的任务项或验收标准。
+- 测试和验证结果能追溯到需求、风险或验收标准。
+- 归档记录能追溯到最终实现范围、验证证据和剩余风险。
+
+## Frontmatter 建议
+
+关键文档应使用同一个 `change_id`，路径必须指向真实存在或计划创建的文档；尚未创建的链接标记为待办，不伪造已存在链接。
+
+```yaml
+---
+change_id: "payment-add-refund-audit"
+status: "draft"
+canonical_spec: "openspec/changes/payment-add-refund-audit/specs/payment/spec.md"
+design_doc: "docs/specs/2026-06-09-payment-refund-audit-design.md"
+plan: "plans/2026-06-09-payment-refund-audit-plan.md"
+base_ref: "git:abc1234"
+created_at: "2026-06-09"
+---
+```
+
+## Plan 内容
+
+非平凡变更的 Plan 至少包含：
+
+- 目标与非目标。
+- 输入文档：Spec、Design Doc、Base Ref。
+- 实现任务：任务、影响文件、对应需求或验收标准。
+- 验收标准。
+- 验证计划：命令、预期结果、手工验证、无法验证项。
+- 风险记录和完成条件。
+
+标准或高风险变更可加入轻量 Trace Matrix：
+
+```markdown
+| Requirement / AC | Design Section | Task | Implementation | Test / Verification | Status |
+|---|---|---|---|---|---|
+| AC1 | Design §2 | T1 | src/payment/... | tests/payment/... | Done |
+```
+
+## 阶段检查
+
+进入实现前检查：
+
+- `change_id` 在 Change / Spec、Design Doc、Plan 中一致。
+- Plan 的 `design_doc`、`canonical_spec` 和 `base_ref` 可追溯。
+- 实现任务、影响范围和验证方式已定义。
+
+进入交付评估前检查：
+
+- 代码变更没有超出 Plan 范围；超出部分已记录原因。
+- 测试和验证结果能追溯到验收标准。
+- 未验证项、剩余风险、error、warning 已记录。
+- 完成声明符合 `completion-claims.mdc`。
+
+进入归档前检查：
+
+- 最终实现范围、未实现项、范围变化和验证证据已记录。
+- 剩余风险和人工确认事项已记录。
+- 归档对象、归档时间和最终状态已记录。
+
+## 禁止事项
+
+- 禁止只有代码修改，没有验收标准或验证方式。
+- 禁止归档后无法追溯当初的 spec、plan、实现范围和验证证据。
+- 禁止使用不存在的路径、移动引用或模糊标签伪造追溯链路。
+- 禁止把未实现、未验证、延后或范围变化的内容标记为完成。

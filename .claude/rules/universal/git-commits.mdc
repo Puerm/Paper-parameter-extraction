@@ -1,0 +1,99 @@
+---
+description: "团队 Git 提交规范：提交边界、Conventional Commits、提交前检查"
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# Git 提交规范
+
+本规则适用于代码、文档、模板、规则、Skill、Workflow 和配置变更。
+
+## 操作边界
+
+- 未经用户明确要求，不执行 `git commit` 或 `git push`。
+- 未经用户明确要求，不改写历史，不清理工作区，不覆盖用户修改。
+- 可以读取 `git status`、`git diff`、`git log` 等只读信息来判断变更范围。
+- 执行会修改暂存区、工作区或远端的 Git 命令前，先说明影响并获得确认。
+- 可以生成推荐 commit message，但不默认代替用户提交。
+
+## Commit 格式
+
+使用 Conventional Commits：
+
+```text
+<type>(<scope>): <summary>
+```
+
+常用 type：
+
+- `feat`：新增功能。
+- `fix`：修复缺陷。
+- `refactor`：不改变行为的重构。
+- `test`：新增或修改测试。
+- `docs`：文档变更。
+- `chore`：工具、配置、依赖和维护。
+- `build`：构建系统或依赖管理。
+- `ci`：CI/CD 配置。
+- `style`：不影响语义的格式调整。
+- `revert`：回滚已有提交。
+
+## 编写要求
+
+- Summary 使用祈使语气或简短动作描述，不以句号结尾。
+- Summary 说明具体变化，避免 `update`、`fix bug`、`changes`、`misc`、`wip`。
+- 一次提交聚焦一个意图。
+- 不把无关格式化、重命名、重构和业务变更混在同一提交。
+- 公共规则、模板、Skill、Workflow 或对外契约变更应独立提交，并说明影响范围。
+
+## Body 与追溯
+
+以下情况建议写 commit body：业务逻辑、API、数据模型、权限、安全、金额、时间、身份、事务一致性、线上问题、跨模块修改或规则变更。
+
+推荐内容：
+
+```text
+Context:
+- <为什么需要此变更>
+
+Changes:
+- <关键变更>
+
+Verification:
+- <实际运行的验证命令和结果>
+
+Risk:
+- <剩余风险或 N/A 原因>
+```
+
+非平凡变更可在 body 或 footer 中记录 `Refs:`、`Plan:`、`Spec:`、`Verification:` 等追溯信息。
+
+## Breaking Change
+
+- 破坏性变更使用 `!` 或 `BREAKING CHANGE:` 标记。
+- API 字段、数据库 schema、配置项、权限语义、公共脚本参数或规则行为的不兼容变化，都按破坏性变更处理。
+
+## 提交前检查
+
+准备提交前检查：
+
+```bash
+git status
+git diff
+git diff --staged
+```
+
+重点确认：
+
+- Staged 文件只包含当前任务需要的变更。
+- 没有无关格式化、调试代码、临时日志、本地实验代码。
+- 没有误提交密钥、token、私有配置、证书或敏感个人信息。
+- Lockfile、snapshot、generated code 的变化有明确原因。
+- 验证结果与 commit message 中的声明一致。
+
+## 禁止事项
+
+- 禁止未经确认擅自提交、改写历史或推送远端。
+- 禁止使用 `git add .` 暂存未经检查的全部变更。
+- 禁止提交密钥、构建产物、缓存目录和本地临时文件。
+- 禁止为了让工作区干净而删除或覆盖用户未确认的修改。
+- 禁止将未验证的变更描述为已验证。

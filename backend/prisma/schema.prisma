@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  passwordHash  String
+  role          String   @default("user")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  papers             Paper[]
+  templates          Template[]
+  parameters         Parameter[]
+  parameterVersions  ParameterVersion[]
+  notifications      Notification[]
+  auditLogs          AuditLog[]
+
+  @@map("users")
+}
+
+model Paper {
+  id              String    @id @default(uuid())
+  filename        String
+  originalName    String    @map("original_name")
+  filePath        String    @map("file_path")
+  fileType        String    @map("file_type")
+  content         String?
+  author          String?
+  doi             String?
+  status          String    @default("pending")
+  extractedCount  Int       @default(0) @map("extracted_count")
+  uploadedById    String    @map("uploaded_by_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  uploadedBy     User               @relation(fields: [uploadedById], references: [id])
+  parameters     Parameter[]
+  extractionJobs ExtractionJob[]
+
+  @@map("papers")
+}
+
+model Template {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  yamlContent String   @map("yaml_content")
+  createdById String   @map("created_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  createdBy      User               @relation(fields: [createdById], references: [id])
+  parameters     Parameter[]
+  extractionJobs ExtractionJob[]
+
+  @@map("templates")
+}
+
+model Parameter {
+  id          String    @id @default(uuid())
+  paperId     String    @map("paper_id")
+  templateId  String    @map("template_id")
+  jsonValue   Json      @map("json_value")
+  status      String    @default("extracted")
+  version     Int       @default(1)
+  createdById String    @map("created_by_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  paper     Paper              @relation(fields: [paperId], references: [id])
+  template  Template           @relation(fields: [templateId], references: [id])
+  createdBy User               @relation(fields: [createdById], references: [id])
+  versions  ParameterVersion[]
+
+  @@map("parameters")
+}
+
+model ParameterVersion {
+  id          String   @id @default(uuid())
+  parameterId String   @map("parameter_id")
+  version     Int
+  jsonValue   Json     @map("json_value")
+  modifiedById String  @map("modified_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  parameter  Parameter @relation(fields: [parameterId], references: [id], onDelete: Cascade)
+  modifiedBy User      @relation(fields: [modifiedById], references: [id])
+
+  @@unique([parameterId, version])
+  @@map("parameter_versions")
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  type      String
+  message   String
+  isRead    Boolean   @default(false) @map("is_read")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  action     String
+  targetType String   @map("target_type")
+  targetId   String   @map("target_id")
+  changes    Json?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model ExtractionJob {
+  id              String   @id @default(uuid())
+  paperId         String   @map("paper_id")
+  templateId      String   @map("template_id")
+  status          String   @default("queued")
+  currentStage    String?  @map("current_stage")
+  totalChunks     Int      @default(0) @map("total_chunks")
+  completedChunks Int      @default(0) @map("completed_chunks")
+  errorMessage    String?  @map("error_message")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  paper     Paper             @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  template  Template          @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  chunks    ExtractionChunk[]
+
+  @@map("extraction_jobs")
+}
+
+model ExtractionChunk {
+  id            String   @id @default(uuid())
+  jobId         String   @map("job_id")
+  chunkIndex    Int      @map("chunk_index")
+  sectionPath   String?  @map("section_path")
+  startOffset   Int      @map("start_offset")
+  endOffset     Int      @map("end_offset")
+  chunkType     String   @map("chunk_type")
+  status        String   @default("queued")
+  inputText     String   @map("input_text")
+  rawOutput     Json?    @map("raw_output")
+  errorMessage  String?  @map("error_message")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  job         ExtractionJob        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  candidates  ExtractionCandidate[]
+
+  @@unique([jobId, chunkIndex])
+  @@map("extraction_chunks")
+}
+
+model ExtractionCandidate {
+  id              String   @id @default(uuid())
+  chunkId         String   @map("chunk_id")
+  fieldName       String   @map("field_name")
+  candidateValue  Json     @map("candidate_value")
+  normalizedValue Json?    @map("normalized_value")
+  evidenceText    String   @map("evidence_text")
+  evidenceStart   Int      @map("evidence_start")
+  evidenceEnd     Int      @map("evidence_end")
+  confidence      Float
+  status          String   @default("uncertain")
+  decisionSource  String?  @map("decision_source")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  chunk ExtractionChunk @relation(fields: [chunkId], references: [id], onDelete: Cascade)
+
+  @@map("extraction_candidates")
+}

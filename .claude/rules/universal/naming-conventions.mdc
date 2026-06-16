@@ -1,0 +1,62 @@
+---
+description: "团队通用命名规范：业务词一致、风格匹配、避免无边界重命名"
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# 命名规范
+
+本规则适用于代码、测试、API、数据库、配置、文档、模板、规则、Skill 和 Workflow。
+
+## 通用原则
+
+- 命名表达业务含义，不使用无意义缩写或临时名称。
+- 同一业务概念应使用同一个英文词根；不同词表示不同概念时，应能从上下文看出边界。
+- 大小写、分隔符和文件命名优先匹配项目既有约定。
+- 不确定业务词时，先查现有代码、Spec、API、数据库 schema 和文档；仍不确定时说明命名假设。
+- 命名应便于搜索，不为追求简短牺牲可读性。
+
+## 重命名边界
+
+- 除非当前任务包含命名修正、重构或公共接口调整，否则不因个人偏好重命名既有名称。
+- 不顺手重命名无关变量、文件、API 字段、数据库字段、配置项或测试快照。
+- 公共 API、数据库列、事件名、配置键、环境变量和导出类型的重命名，按兼容性变更处理。
+- 涉及外部调用方、持久化数据或迁移成本的重命名，先说明影响范围和迁移策略。
+
+## 代码命名
+
+- TypeScript / JavaScript 变量和函数使用 `camelCase`。
+- 类型、接口、类、枚举、React 组件使用 `PascalCase`。
+- `UPPER_SNAKE_CASE` 只用于真正稳定的全局常量或环境变量。
+- Hook 使用 `use` 前缀，例如 `useCurrentUser`。
+- 布尔值优先使用 `is`、`has`、`can`、`should`、`needs`、`allows`，或项目已有的 `enabled`、`visible`、`required` 等约定。
+- 集合使用复数名词；数量使用明确后缀，例如 `userCount`。
+- Map、Set、List 等集合变量应表达 key 或元素语义，例如 `usersById`、`selectedUserIds`。
+- 避免双重否定和过泛名称，例如 `isNotDisabled`、`data`、`item`、`value`。
+
+## 时间、单位与金额
+
+- 时间点使用 `At` 后缀，例如 `createdAt`、`expiresAt`。
+- 日期使用 `Date` 后缀，例如 `birthDate`。
+- 时长、距离、金额、数量、比例等数值名称应体现单位，例如 `timeoutMillis`、`retryDelaySeconds`。
+- 金额字段遵守项目的金额表示规则，不用模糊的 `amount` 隐藏币种或单位。
+
+## API、数据库与配置
+
+- API 路径、字段和错误码使用稳定业务词，不暴露内部实现名。
+- 数据库表名、列名遵守项目既有约定，不在同一项目混用风格。
+- DTO、Command、Query、Event、Request、Response 等后缀只在对应模式真实存在时使用。
+- 配置项和环境变量表达作用域、用途和单位，例如 `PAYMENT_RETRY_TIMEOUT_SECONDS`。
+- Feature flag 表达启用的能力，例如 `refundRetryEnabled` 或 `REFUND_RETRY_ENABLED`。
+
+## 测试与文档
+
+- 测试名称表达场景、行为和预期结果，避免 `test1`、`works`、`should work`。
+- Fixture、mock 和 sample data 表达用途，例如 `expiredTokenUser`、`paidOrderFixture`。
+- 文档、规则、模板和 Skill 文件名表达主题和用途，避免 `final.md`、`draft2.md`、`misc.md`。
+
+## 禁止事项
+
+- 禁止 `data1`、`temp`、`tmp`、`newObj`、`foo`、`bar` 等临时命名进入正式代码。
+- 禁止用同一个词表达多个核心概念，或用多个词表达同一核心概念。
+- 禁止将外部 API、数据库字段、配置键或事件名的重命名伪装成普通内部重构。
