@@ -98,6 +98,7 @@ alwaysApply: true
 * 剩余 error、warning、风险、假设和未验证项。
 * 需要人工确认的事项。
 * 升级到下一状态所需动作。
+* 本次实际使用的 Team Vibe rules 和 skills；只使用 Always Load rules 或未使用额外 skill 时，也必须明确说明。
 
 不得使用以下表述，除非证据满足 `L5 Delivery Ready`：
 
@@ -126,6 +127,10 @@ alwaysApply: true
 证据：
 - <验证命令 1>：<结果>
 - <验证命令 2>：<结果>
+
+使用的 rules / skills：
+- Rules：<实际使用的 rule 文件；例如仅使用 Always Load rules>
+- Skills：<实际使用的 skill；例如未使用额外 skill>
 
 阻塞门禁：
 - <无 / 有，列出具体项>

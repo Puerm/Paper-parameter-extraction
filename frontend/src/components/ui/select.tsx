@@ -16,7 +16,7 @@ function SelectNative({
         className={cn(
           "flex h-9 w-full appearance-none rounded-lg border border-slate-200 bg-white px-3 pr-8 text-sm text-slate-900 transition-colors",
           "hover:border-slate-300",
-          "focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20",
+          "focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20",
           "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
           size === "sm" ? "h-8 text-xs" : "h-9",
           className

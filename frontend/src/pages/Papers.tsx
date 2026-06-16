@@ -77,7 +77,7 @@ export default function PapersPage() {
 
       <div className="flex gap-3 mb-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
           <Input
             placeholder="搜索文件名、作者、DOI..."
             value={search}
@@ -116,8 +116,8 @@ export default function PapersPage() {
           {papers.length === 0 && (
             <TableRow>
               <TableCell colSpan={7} className="text-center text-slate-400 py-12">
-                <p className="mb-1 font-medium text-slate-500">一篇论文都没有… 📄</p>
-                <p className="text-sm text-slate-400">是时候治治你的拖延症了，上传第一篇吧</p>
+                <p className="mb-1 font-medium text-slate-500">暂无论文</p>
+                <p className="text-sm text-slate-400">上传你的第一篇论文开始提取参数</p>
               </TableCell>
             </TableRow>
           )}
@@ -126,11 +126,11 @@ export default function PapersPage() {
             return (
               <TableRow key={p.id}>
                 <TableCell className="font-medium">
-                  <Link to={`/papers/${p.id}`} className="hover:text-blue-600 hover:underline">
+                  <Link to={`/papers/${p.id}`} className="hover:text-indigo-600 hover:underline">
                     {p.filename}
                   </Link>
                 </TableCell>
-                <TableCell className="text-sm text-gray-500">
+                <TableCell className="text-sm text-slate-500">
                   {new Date(p.createdAt).toLocaleDateString('zh-CN')}
                 </TableCell>
                 <TableCell>{p.author || '-'}</TableCell>
@@ -153,7 +153,7 @@ export default function PapersPage() {
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-4">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-slate-500">
             第 {page} / {totalPages} 页
           </span>
           <div className="flex gap-2">

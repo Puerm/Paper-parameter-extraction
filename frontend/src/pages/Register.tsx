@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
 
 export default function RegisterPage() {
@@ -34,10 +34,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50/50">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">创建账号</CardTitle>
+          <CardTitle className="text-xl font-bold text-slate-900">创建账号</CardTitle>
           <CardDescription>注册后即可上传论文、提取实验参数</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -55,14 +55,14 @@ export default function RegisterPage() {
               <Input id="confirm" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} required />
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-2">
+          <div className="px-(--card-spacing) pb-(--card-spacing) space-y-3">
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? '注册中...' : '注册'}
             </Button>
-            <p className="text-sm text-gray-500">
-              已有账号？<Link to="/login" className="text-blue-600 hover:underline">登录</Link>
+            <p className="text-sm text-slate-400 text-center">
+              已有账号？<Link to="/login" className="text-indigo-600 hover:underline font-medium">登录</Link>
             </p>
-          </CardFooter>
+          </div>
         </form>
       </Card>
     </div>

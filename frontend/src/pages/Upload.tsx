@@ -48,14 +48,14 @@ export default function UploadPage() {
         </CardHeader>
         <CardContent>
           <div
-            className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover:border-blue-400 transition-colors"
+            className="border-2 border-dashed rounded-xl p-12 text-center cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/30 transition-all"
             onDrop={handleDrop}
             onDragOver={e => e.preventDefault()}
             onClick={() => inputRef.current?.click()}
           >
-            <UploadCloud className="h-10 w-10 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">点击或拖拽文件到此处上传</p>
-            <p className="text-sm text-gray-400 mt-1">支持 PDF、DOCX、Markdown 格式</p>
+            <UploadCloud className="h-12 w-12 text-slate-300 mx-auto mb-4" />
+            <p className="text-slate-600 font-medium">点击或拖拽文件到此处上传</p>
+            <p className="text-sm text-slate-400 mt-1">支持 PDF、DOCX、Markdown 格式</p>
             <input
               ref={inputRef}
               type="file"
@@ -71,9 +71,9 @@ export default function UploadPage() {
           {files.length > 0 && (
             <div className="mt-4 space-y-2">
               {files.map((f, i) => (
-                <div key={i} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
-                  <File className="h-4 w-4 text-gray-400" />
-                  <span className="flex-1 text-sm">{f.name}</span>
+                <div key={i} className="flex items-center gap-2 p-2 bg-slate-50 rounded">
+                  <File className="h-4 w-4 text-slate-400" />
+                  <span className="flex-1 text-sm text-slate-700">{f.name}</span>
                   <Button variant="ghost" size="sm" onClick={() => setFiles(files.filter((_, j) => j !== i))}>
                     移除
                   </Button>

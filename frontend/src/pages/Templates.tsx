@@ -68,17 +68,17 @@ export default function TemplatesPage() {
     try {
       if (editing) {
         await api.put(`/templates/${editing.id}`, form)
-        toast.success('模板已更新 ✅')
+        toast.success('模板已更新')
       } else {
         await api.post('/templates', form)
-        toast.success('模板已创建 ✅ 比写论文快多了')
+        toast.success('模板已创建')
       }
       setOpen(false)
       setEditing(null)
       setForm({ name: '', yamlContent: EXAMPLE_YAML })
       fetch()
     } catch (err: unknown) {
-      toast.error('翻车了 🫠 要不你再试一次？')
+      toast.error('操作失败，请重试')
     } finally {
       setSaving(false)
     }
@@ -93,22 +93,22 @@ export default function TemplatesPage() {
   const handleClone = async (id: string) => {
     try {
       await api.post(`/templates/${id}/clone`)
-      toast.success('克隆成功 🧬 比 reviewer 写 review 快多了')
+      toast.success('克隆成功')
       fetch()
     } catch (err: unknown) {
-      toast.error('翻车了 🫠 要不你再试一次？')
+      toast.error('操作失败，请重试')
     }
   }
 
   const handleDelete = async (t: Template) => {
-    if (!confirm(`确定删除模板「${t.name}」？删了 reviewer 也救不回来 😬`)) return
+    if (!confirm(`确定删除模板「${t.name}」？此操作不可撤销。`)) return
     try {
       await api.delete(`/templates/${t.id}`)
-      toast.success('已删除 🗑️ 干干净净')
+      toast.success('模板已删除')
       if (activeTemplate?.id === t.id) setActiveTemplate(null)
       fetch()
     } catch (err: unknown) {
-      toast.error('翻车了 🫠 要不你再试一次？')
+      toast.error('操作失败，请重试')
     }
   }
 
@@ -138,7 +138,7 @@ export default function TemplatesPage() {
         <div className="flex items-center gap-3">
           {isAdmin && (
             <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger className="inline-flex h-10 items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700" onClick={openCreate}>
+              <DialogTrigger className="inline-flex h-10 items-center justify-center rounded-lg bg-[#4F46E5] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#4338CA] active:scale-[0.98]" onClick={openCreate}>
                 <Plus className="mr-1.5 h-4 w-4" />
                 新建模板
               </DialogTrigger>
@@ -172,9 +172,9 @@ export default function TemplatesPage() {
                         + 插入示例字段
                       </button>
                     </div>
-                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100/60">
+                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all focus-within:border-indigo-400 focus-within:ring-2 focus-within:ring-indigo-100/60">
                       <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2">
-                        <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-blue-700">YAML</span>
+                        <span className="rounded bg-indigo-100 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-indigo-700">YAML</span>
                         <span className="text-xs text-slate-400">每行一个字段，格式：字段名: 描述</span>
                       </div>
                       <Textarea
@@ -224,8 +224,8 @@ export default function TemplatesPage() {
         <Card className="border-dashed border-slate-200 bg-white/70">
           <CardContent className="py-16 text-center">
             <Layers className="mx-auto mb-3 h-12 w-12 text-slate-300" />
-            <p className="mb-1 text-slate-500 font-medium">还没有模板呢 🧑‍🔬</p>
-            <p className="mb-4 text-sm text-slate-400">去建一个吧，比写论文简单多了</p>
+            <p className="mb-1 text-slate-500 font-medium">还没有模板</p>
+            <p className="mb-4 text-sm text-slate-400">创建第一个参数模板开始提取</p>
             {isAdmin && (
               <Button variant="outline" size="sm" onClick={openCreate}>
                 <Plus className="mr-1 h-4 w-4" />

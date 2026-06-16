@@ -12,6 +12,9 @@ plugins, and tools.
 | `https://github.com/anthropics/skills/tree/main/skills/webapp-testing` | `skills/webapp-testing` | Official webapp runtime testing skill. Complements UI review with Playwright verification. |
 | `https://github.com/anthropics/skills/tree/main/skills/pptx` | `skills/pptx` | Official PPTX creation/editing/review skill. |
 | `https://github.com/safishamsi/graphify` | `skills/graphify` | Codebase graph and architecture-query skill. |
+| `https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design` | `skills/frontend-design` | Official Anthropic frontend-design skill. Complements ui-ux-pro-max with creative, distinctive aesthetic direction and anti-generic design guidelines. |
+| `https://github.com/freestylefly/canghe-skills` | `skills/find-skills` | Community skill for discovering and installing agent skills via the `npx skills` ecosystem. |
+| `https://github.com/JuliusBrussee/caveman` | `skills/caveman` | Popular token-compression skill. Cuts output token usage ~75% by dropping filler/pleasantries while preserving technical accuracy. Supports lite/full/ultra/wenyan intensity levels. |
 
 ## Installed As Plugin Reference
 
@@ -19,18 +22,11 @@ plugins, and tools.
 |---|---|---|
 | `https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review` | `plugins/code-review` | Official PR review plugin. Use `/code-review`; do not load as `@skill`. |
 
-## Installed As Local Claude Code Tooling
-
-| Source | Installed Path | Decision |
-|---|---|---|
-| `https://github.com/open-gsd/gsd-core` | `.claude/commands/gsd`, `.claude/agents`, `.claude/gsd-core`, `.claude/hooks` | Installed with `npx @opengsd/gsd-core@latest --claude --local`. GSD Core is a slash-command/agent/hook system, not a plain `SKILL.md` skill. |
-
 ## External Tools Not Vendored As Skills
 
 | Source | Decision |
 |---|---|
 | `https://github.com/thedotmack/claude-mem` | Keep as separately installed Claude Code plugin/tool. It depends on hooks, a worker service, MCP tools, and a local database, so copying only its skill files would be misleading. |
-| `https://github.com/gsd-build/get-shit-done` | Superseded by `https://github.com/open-gsd/gsd-core`, which is now installed locally under `.claude/`. |
 | `https://github.com/HKUDS/LightRAG` | Not a Claude Code skill. Treat as a RAG framework/library candidate for a separate architecture decision. |
 
 ## Removed Local Duplicate Skills
@@ -73,5 +69,5 @@ criteria, or templates that the external skills do not know:
 ## Pending
 
 The user originally mentioned ten candidate repositories. This migration pass
-now records the nine links provided so far plus the corrected GSD Core source.
+now records the nine links provided so far.
 Add any remaining candidate here before the next replacement round.

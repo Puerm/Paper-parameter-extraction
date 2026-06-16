@@ -1,13 +1,72 @@
 ---
 name: doc-generator
 description: Use when generating or updating project documentation from code, specs, plans, API contracts, deployment notes, or existing Team Vibe templates.
+version: "0.1.0"
+tags: ["documentation", "generator", "knowledge-base"]
 ---
 
-# Doc Generator
+# 文档生成
 
-This is a native Claude Code skill wrapper for the retained Team Vibe source:
+## 何时使用
 
-- `../generators/doc-generator.md`
+- 用户要求生成 README、ADR、接口说明、迁移指南、排障指南、复盘或工程文档。
+- 代码、接口、流程或决策已经存在，需要整理成团队可复用文档。
+- 复杂变更需要补充背景、边界、维护方式或追溯关系。
 
-Load that file as the direct reference and follow its generation workflow. The
-source markdown remains the Team Vibe authority for this skill.
+## 何时不用
+
+- 用户只需要一句解释、临时总结或代码注释。
+- 事实来源不足，无法确认关键结论。
+- 文档会重复代码中已经显而易见且稳定的信息。
+
+## 输入
+
+- 代码模块、接口定义、架构设计、故障复盘、会议记录或实现 diff。
+- 目标读者：新人、维护者、Reviewer、业务方或运维人员。
+
+## 第一步
+
+先确定文档类型、目标读者和使用场景，再阅读相关代码和已有文档。目标读者不明确时，先说明假设。
+
+## 文档原则
+
+1. 面向读者任务写作：让读者完成接入、维护、排障或 Review。
+2. 保留决策依据：为什么这样做，比只写怎么做更重要。
+3. 示例优先：用最小代码或命令展示真实用法。
+4. 明确边界：写清楚适用场景、不适用场景和已知风险。
+5. 避免重复：不要复写代码里已经显而易见的内容。
+
+## 工作流程
+
+1. 确定文档类型：README、ADR、接口说明、排障指南、迁移指南或复盘。
+2. 阅读相关代码和已有文档，避免风格割裂。
+3. 提炼结构：背景、目标、用法、约定、风险、维护方式。
+4. 生成文档并标注需要人工确认的信息。
+5. 给出后续维护建议，例如何时更新、由谁负责。
+6. 对架构或 POC 文档，补充 SPEC、task plan、data schema、eval cases 和 ADR 之间的追溯关系。
+
+## 输出模板
+
+```markdown
+# 标题
+
+## 背景
+
+## 适用场景
+
+## 使用方式
+
+## 关键约定
+
+## 常见问题
+
+## 维护说明
+```
+
+## 质量门槛
+
+- 不把不确定事实写成确定结论。
+- 文档能被新人独立使用。
+- 对易变信息保留来源或更新时间。
+- 关键设计文档必须说明"为什么这样做"，不能只记录最终结果。
+- 交付时说明哪些内容来自代码证据，哪些需要人工确认。

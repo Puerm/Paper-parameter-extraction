@@ -1,13 +1,76 @@
 ---
 name: api-design-review
 description: Use when reviewing API routes, DTOs, OpenAPI specs, controller diffs, compatibility, auth boundaries, pagination/filtering, idempotency, or project API conventions.
+version: "0.1.0"
+tags: ["api", "backend", "code-review", "standards"]
 ---
 
-# API Design Review
+# API 设计审查
 
-This is a native Claude Code skill wrapper for the retained Team Vibe source:
+## 何时使用
 
-- `../code-review/api-design.md`
+- 用户要求审查 API 路由、DTO、OpenAPI、Controller 或接口 diff。
+- 变更涉及接口兼容性、错误码、鉴权授权、分页过滤排序或幂等性。
+- 需要判断 API 设计是否符合项目约定。
 
-Load that file as the direct reference and follow its review workflow. The
-source markdown remains the Team Vibe authority for this skill.
+## 何时不用
+
+- 用户要求生成 API 客户端；使用 `generators/api-generator`。
+- 只是在实现后做端到端交付评估；使用 `verification-before-completion`。
+- 没有接口定义或代码入口，先请求补充 API 输入。
+
+## 输入
+
+- API 路由、Controller、DTO、OpenAPI/Swagger 文档或接口 diff。
+- 项目 `CLAUDE.md` 中的后端架构、鉴权、错误处理和数据库约定。
+
+## 第一步
+
+先确认接口的调用方、兼容性要求和鉴权边界；然后对照项目已有 API 风格，而不是只按通用 REST 偏好审查。
+
+## 审查重点
+
+1. 资源建模：路径使用名词和复数资源，避免动作式 URL。
+2. HTTP 语义：方法、状态码、幂等性和缓存语义正确。
+3. 请求响应：字段命名一致，分页、过滤、排序格式统一。
+4. 错误处理：错误码稳定，响应不暴露敏感信息，客户端可恢复。
+5. 兼容性：新增字段向后兼容，破坏性变更有版本策略。
+6. 鉴权授权：身份校验、资源归属和权限边界明确。
+7. 可观测性：关键失败路径有日志、trace id 或审计信息。
+8. 并发语义：重复提交、支付回调、充值、结算、库存扣减等接口必须具备幂等或锁策略。
+9. 需求追溯：接口是否覆盖 SPEC 中的每条验收要求。
+
+## 推荐约定
+
+规范来源：
+
+- API 路由、分页、过滤、排序、兼容性和幂等语义：`rules/backend/api-standards.mdc`
+- 错误响应、HTTP 状态码、重试和日志脱敏：`rules/universal/error-handling.mdc`
+- 字段命名、单位和公开名称：`rules/universal/naming-conventions.mdc`
+
+本 skill 审查是否遵守这些规则，不重新定义规则正文。
+
+## 输出格式
+
+```markdown
+## 接口风险
+
+- [接口/文件:行号] 问题描述
+  风险：说明对客户端、数据或安全的影响。
+  建议：给出兼容迁移方案。
+
+## 设计建议
+
+- 建议项和理由。
+
+## 需要确认
+
+- 列出依赖产品、客户端或架构决策的问题。
+```
+
+## 质量门槛
+
+- 优先发现破坏性变更、权限问题和错误状态码问题。
+- 对 API 风格争议给出项目内一致性依据。
+- 需要产品决策的问题不要擅自定论，放入"需要确认"。
+- 没有发现风险时，明确说明"未发现接口阻塞风险"。

@@ -186,7 +186,7 @@ export default function ReviewPage() {
                   <Card
                     key={p.id}
                     className={`cursor-pointer transition-all hover:shadow-sm
-                      ${selected?.id === p.id ? 'ring-2 ring-blue-500 border-blue-200' : 'border-slate-200'}`}
+                      ${selected?.id === p.id ? 'ring-2 ring-indigo-500 border-indigo-200' : 'border-slate-200'}`}
                     onClick={() => handleSelect(p)}
                   >
                     <CardContent className="p-3">
@@ -297,7 +297,7 @@ export default function ReviewPage() {
                               type="text"
                               value={value}
                               onChange={e => setEditValues({ ...editValues, [key]: e.target.value })}
-                              className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+                              className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400"
                             />
                           ) : (
                             <span className={`text-sm px-3 py-1.5 rounded-md ${value ? 'text-slate-800 bg-slate-50' : 'text-slate-300 italic'}`}>

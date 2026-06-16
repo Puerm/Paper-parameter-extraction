@@ -149,9 +149,9 @@ export default function PaperDetailPage() {
 
           {/* Extraction card */}
           {paper.status === 'parsed' && (
-            <Card className="border-blue-200 bg-blue-50/30">
+            <Card className="border-indigo-200 bg-indigo-50/30">
               <CardHeader>
-                <CardTitle className="text-sm font-medium flex items-center gap-2 text-blue-700">
+                <CardTitle className="text-sm font-medium flex items-center gap-2 text-indigo-700">
                   <Sparkles className="h-4 w-4" />
                   AI 参数提取
                 </CardTitle>
@@ -166,7 +166,7 @@ export default function PaperDetailPage() {
                 </SelectNative>
                 {templates.length === 0 && (
                   <p className="text-xs text-slate-400 mt-1">暂无模板 —
-                    <Link to="/templates" className="text-blue-600 hover:underline">创建</Link>
+                    <Link to="/templates" className="text-indigo-600 hover:underline">创建</Link>
                   </p>
                 )}
                 <div className="flex gap-2">

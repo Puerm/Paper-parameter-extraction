@@ -43,8 +43,8 @@ export default function QAPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">AI 问答</h1>
-      <p className="text-sm text-gray-500 mb-6">
+      <h1 className="text-2xl font-bold text-slate-900 mb-6">AI 问答</h1>
+      <p className="text-sm text-slate-500 mb-6">
         用自然语言查询参数库。例如："近三年所有催化剂实验中，温度超过100℃且收率大于90%的有哪些？"
       </p>
 
@@ -75,7 +75,7 @@ export default function QAPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4 text-blue-600" />
+                  <MessageCircle className="h-4 w-4 text-indigo-600" />
                   <span className="font-medium">{current.question}</span>
                   {current.resultCount !== undefined && (
                     <Badge variant="secondary" className="text-xs">
@@ -87,7 +87,7 @@ export default function QAPage() {
               </CardHeader>
               <CardContent>
                 <div className="prose prose-sm max-w-none">
-                  <pre className="text-sm whitespace-pre-wrap font-sans bg-gray-50 rounded-lg p-4">
+                  <pre className="text-sm whitespace-pre-wrap font-sans bg-slate-50 rounded-lg p-4 text-slate-700">
                     {current.answer}
                   </pre>
                 </div>
@@ -97,8 +97,8 @@ export default function QAPage() {
 
           {!current && !loading && (
             <Card>
-              <CardContent className="py-12 text-center text-gray-400">
-                <MessageCircle className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+              <CardContent className="py-12 text-center text-slate-400">
+                <MessageCircle className="h-12 w-12 mx-auto mb-3 text-slate-300" />
                 <p>在输入框中输入问题开始查询</p>
                 <p className="text-xs mt-1">基于已入库的参数库进行自然语言查询</p>
               </CardContent>
@@ -108,7 +108,7 @@ export default function QAPage() {
           {loading && (
             <Card>
               <CardContent className="py-8 text-center">
-                <div className="animate-pulse text-gray-400">AI 正在分析查询...</div>
+                <div className="animate-pulse text-slate-400">AI 正在分析查询...</div>
               </CardContent>
             </Card>
           )}
@@ -125,17 +125,17 @@ export default function QAPage() {
             </CardHeader>
             <CardContent>
               {history.length === 0 ? (
-                <p className="text-xs text-gray-400 text-center py-4">暂无查询记录</p>
+                <p className="text-xs text-slate-400 text-center py-4">暂无查询记录</p>
               ) : (
                 <div className="space-y-2">
                   {history.map((h, i) => (
                     <div
                       key={i}
-                      className="p-2 rounded hover:bg-gray-50 cursor-pointer text-sm"
+                      className="p-2 rounded hover:bg-slate-50 cursor-pointer text-sm"
                       onClick={() => setQuestion(h.question)}
                     >
-                      <p className="truncate">{h.question}</p>
-                      <p className="text-xs text-gray-400 truncate mt-1">{h.answer.slice(0, 60)}</p>
+                      <p className="truncate text-slate-700">{h.question}</p>
+                      <p className="text-xs text-slate-400 truncate mt-1">{h.answer.slice(0, 60)}</p>
                     </div>
                   ))}
                 </div>

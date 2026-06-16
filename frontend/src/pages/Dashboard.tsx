@@ -26,23 +26,23 @@ export default function DashboardPage() {
     api.get('/dashboard/trends').then(setTrends).catch(() => {})
   }, [])
 
-  if (!stats) return <div className="p-8 text-slate-400 text-center"><p className="text-sm">正在拼命解析… 咖啡已经准备好了 ☕</p></div>
+  if (!stats) return <div className="p-8 text-slate-400 text-center"><p className="text-sm">加载中...</p></div>
 
   const cards = [
-    { label: '论文总数', value: stats.totalPapers, icon: FileText, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: '模板总数', value: stats.totalTemplates, icon: Layers, color: 'text-purple-600', bg: 'bg-purple-50' },
-    { label: '参数总数', value: stats.totalParameters, icon: Database, color: 'text-green-600', bg: 'bg-green-50' },
-    { label: '成功率', value: `${stats.successRate}%`, icon: CheckCircle2, color: 'text-orange-600', bg: 'bg-orange-50' },
+    { label: '论文总数', value: stats.totalPapers, icon: FileText, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+    { label: '模板总数', value: stats.totalTemplates, icon: Layers, color: 'text-sky-600', bg: 'bg-sky-50' },
+    { label: '参数总数', value: stats.totalParameters, icon: Database, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: '成功率', value: `${stats.successRate}%`, icon: CheckCircle2, color: 'text-amber-600', bg: 'bg-amber-50' },
   ]
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">仪表盘</h1>
+      <h1 className="text-2xl font-bold mb-6 text-slate-900">仪表盘</h1>
       <div className="grid grid-cols-4 gap-4">
         {cards.map(c => (
           <Card key={c.label}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-500">{c.label}</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-500">{c.label}</CardTitle>
               <div className={`p-2 rounded-lg ${c.bg}`}>
                 <c.icon className={`h-4 w-4 ${c.color}`} />
               </div>
@@ -63,15 +63,15 @@ export default function DashboardPage() {
             {trends?.uploadTrend?.length ? (
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={trends.uploadTrend}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
                   <XAxis dataKey="date" tick={{ fontSize: 10 }} />
                   <YAxis tick={{ fontSize: 10 }} />
                   <Tooltip />
-                  <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="count" fill="#4F46E5" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据 📊</div>
+              <div className="h-48 flex items-center justify-center text-slate-400 text-sm">暂无数据</div>
             )}
           </CardContent>
         </Card>
@@ -88,11 +88,11 @@ export default function DashboardPage() {
                   <XAxis dataKey="date" tick={{ fontSize: 10 }} />
                   <YAxis tick={{ fontSize: 10 }} domain={[0, 100]} />
                   <Tooltip />
-                  <Line type="monotone" dataKey="rate" stroke="#22c55e" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="rate" stroke="#10B981" strokeWidth={2} dot={false} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据 📊</div>
+              <div className="h-48 flex items-center justify-center text-slate-400 text-sm">暂无数据</div>
             )}
           </CardContent>
         </Card>
@@ -109,11 +109,11 @@ export default function DashboardPage() {
                   <XAxis type="number" tick={{ fontSize: 10 }} />
                   <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} width={80} />
                   <Tooltip />
-                  <Bar dataKey="count" fill="#a855f7" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="count" fill="#6366F1" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据 📊</div>
+              <div className="h-48 flex items-center justify-center text-slate-400 text-sm">暂无数据</div>
             )}
           </CardContent>
         </Card>

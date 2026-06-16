@@ -1,13 +1,68 @@
 ---
 name: refactor-workflow
 description: Use for behavior-preserving refactors that require scope control, tests, migration discipline, and evidence that external behavior did not change.
+version: "0.1.0"
+tags: ["refactor", "workflow", "quality"]
 ---
 
-# Refactor Workflow
+# 重构标准流程
 
-This is a native Claude Code skill wrapper for the retained Team Vibe source:
 
-- `../workflows/refactor-workflow.md`
+## 适用场景
 
-Load that file as the direct reference and follow its refactor workflow. The
-source markdown remains the Team Vibe authority for this skill.
+- 拆分过长函数、组件或服务。
+- 消除重复逻辑。
+- 迁移目录结构或模块边界。
+- 改善类型、命名、依赖方向和测试覆盖。
+
+## 何时不用
+
+- 用户实际要求新增功能、修复业务 bug 或改变外部行为。
+- 当前代码缺少基本测试且无法建立替代验证方法。
+- 重构目标只是个人风格偏好，不能减少真实复杂度或风险。
+
+## 第一步
+
+先写明重构目标、非目标和外部行为不变的验证方式。没有验证方式时，先补测试或记录人工验证路径。
+
+## 工作原则
+
+1. 先锁定行为，再改变结构。
+2. 每次重构只解决一个主要问题。
+3. 保持外部 API 和用户可见行为不变，除非任务明确要求。
+4. 优先增加测试，再移动或抽象代码。
+5. 避免顺手改业务逻辑、样式和无关命名。
+6. 不改动自己理解不足且与任务无关的代码。
+7. 如果发现额外问题，先记录为建议，不在当前重构里顺手处理。
+
+## 标准流程
+
+1. 说明重构目标和非目标。
+2. 识别当前调用方、边界、测试和风险点。
+3. 补齐关键测试或记录现有验证命令。
+4. 小步调整结构：提取函数、拆组件、移动模块或收窄类型。
+5. 运行测试、类型检查和 lint。
+6. 总结变更范围、风险和回滚方式。
+
+## 输出格式
+
+```markdown
+## 重构目标
+
+## 非目标
+
+## 影响范围
+
+## 变更步骤
+
+## 验证结果
+
+## 剩余风险
+```
+
+## 质量门槛
+
+- 没有测试保护时，必须说明人工验证方法。
+- 不在重构中引入新业务需求。
+- 抽象必须减少真实复杂度或重复，而不是只改变形状。
+- diff 中不应出现与重构目标无关的格式化、重命名或风格偏好修改。

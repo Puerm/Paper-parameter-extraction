@@ -30,10 +30,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50/50">
       <Card className="w-full max-w-sm shadow-lg border-0">
         <CardHeader className="text-center pb-2">
-          <div className="mx-auto mb-3 h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center">
+          <div className="mx-auto mb-3 h-10 w-10 rounded-xl bg-[#4F46E5] flex items-center justify-center">
             <FlaskConical className="h-6 w-6 text-white" />
           </div>
           <CardTitle className="text-xl font-bold text-slate-900">PaperParams</CardTitle>
@@ -69,7 +69,7 @@ export default function LoginPage() {
           </form>
           <p className="text-sm text-slate-400 text-center mt-4">
             还没有账号？
-            <Link to="/register" className="text-blue-600 hover:underline font-medium ml-1">注册</Link>
+            <Link to="/register" className="text-indigo-600 hover:underline font-medium ml-1">注册</Link>
           </p>
         </CardContent>
       </Card>

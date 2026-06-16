@@ -275,3 +275,20 @@ audit_logs          — 审计日志（用户ID、操作、目标类型、目标
 - **设计文档**：`openspec/changes/paper-experiment-param-extraction/design.md` — 技术栈、状态机、RBAC、AI 工作流、并发策略已确定
 - **任务拆解**：`openspec/changes/paper-experiment-param-extraction/tasks.md` — 从项目初始化到集成部署的完整拆解
 - **下一步**：按 tasks.md 顺序执行 1. 项目初始化 → 2. 用户与权限系统
+
+<!-- TEAM_VIBE_PROGRESSIVE_DISCLOSURE_START -->
+## Team Vibe Progressive Disclosure
+
+- Before starting a task, read `.claude/skills/INDEX.md` and load only the skill needed for the current task.
+- Also read `.claude/rules/index.md`, then load only the Team Vibe rules relevant to the task.
+- Do not read every file under `.claude/skills/` by default.
+- Do not read every file under `.claude/rules/` by default.
+- For ordinary development work, start with `@skill using-superpowers`.
+- For debugging, use `@skill systematic-debugging`.
+- For planning and execution, use `@skill writing-plans` and `@skill executing-plans`.
+- Before delivery, use `@skill verification-before-completion`.
+- For UI, webapp testing, PPT, codebase maps, skill discovery, and token-efficient communication, use `@skill ui-ux-pro-max`, `@skill frontend-design`, `@skill webapp-testing`, `@skill pptx`, `@skill graphify`, `@skill find-skills`, and `@skill caveman` only when relevant.
+- For structural codebase questions, prefer CodeGraph after `.codegraph/` is initialized; use literal search only for strings, logs, comments, and exact text.
+- Check `.claude/TEAM_VIBE_VERSION` and compare against the config repo; warn if the deployed config may be outdated but do not block work on a version mismatch.
+- At task completion or phase handoff, report which Team Vibe rules and skills were actually used; if none were used beyond always-load rules, say that explicitly.
+<!-- TEAM_VIBE_PROGRESSIVE_DISCLOSURE_END -->

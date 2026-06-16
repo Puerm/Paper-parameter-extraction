@@ -1,13 +1,60 @@
 ---
 name: api-generator
 description: Use when generating or updating typed API clients, API types, interface docs, or client call wrappers from OpenAPI, Swagger, route code, or API examples.
+version: "0.1.0"
+tags: ["api", "generator", "typescript", "openapi"]
 ---
 
-# API Generator
+# API 客户端生成
 
-This is a native Claude Code skill wrapper for the retained Team Vibe source:
+## 何时使用
 
-- `../generators/api-generator.md`
+- 用户要求根据 OpenAPI、Swagger、后端路由或接口说明生成 API 客户端。
+- 前端需要新增或更新类型安全的接口调用封装。
+- 需要把示例请求响应转成项目统一的 client 函数和类型。
 
-Load that file as the direct reference and follow its generation workflow. The
-source markdown remains the Team Vibe authority for this skill.
+## 何时不用
+
+- 只是审查 API 设计；使用 `code-review/api-design`。
+- 后端接口契约不明确且缺少示例，先请求或补齐接口定义。
+- 项目已有自动生成工具且用户只要求运行生成命令，优先使用现有工具。
+
+## 输入
+
+- OpenAPI/Swagger 文档、接口说明、后端路由代码或示例请求响应。
+- 项目 `CLAUDE.md` 中的 API 客户端位置、错误处理和类型约定。
+
+## 第一步
+
+先查找项目已有 API client、类型生成方式、错误处理封装和认证注入方式；只有找不到现有模式时，才设计最小新结构。
+
+## 生成原则
+
+1. 生成类型优先：请求参数、响应体和错误体必须有明确类型。
+2. 复用项目已有 `apiClient`、鉴权、日志和错误处理封装。
+3. 不在业务组件里直接拼 URL 或调用 `fetch`。
+4. 函数命名表达业务意图，例如 `getUserProfile`、`updateOrderStatus`。
+5. 保持文件边界清晰：类型、客户端函数和转换逻辑按项目约定组织。
+
+## 工作流程
+
+1. 读取接口定义，识别 base path、鉴权方式、请求参数和响应模型。
+2. 检查项目已有 API 调用模式，优先复用现有工具。
+3. 生成类型定义和客户端函数。
+4. 补充最小必要的单元测试或调用示例。
+5. 列出接口定义中不明确的字段、错误码或兼容性问题。
+
+## 输出要求
+
+- 说明新增或修改的文件。
+- 给出核心调用示例。
+- 标注无法从接口定义确认的字段。
+- 不生成未使用的大量样板代码。
+
+## 质量门槛
+
+- TypeScript 严格模式下通过类型检查。
+- 错误处理遵守项目约定。
+- 不引入新的 HTTP 客户端库，除非项目已明确采用。
+- 生成结果能用一个真实调用示例说明如何使用。
+- 无法确认的字段、错误码或兼容性问题已列出。

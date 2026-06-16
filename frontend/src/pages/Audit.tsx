@@ -46,7 +46,7 @@ export default function AuditPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">审计日志</h1>
+        <h1 className="text-2xl font-bold text-slate-900">审计日志</h1>
         <SelectNative value={filterType} onChange={e => setFilterType(e.target.value)} size="sm" className="w-36">
           <option value="all">全部类型</option>
           <option value="papers">论文</option>
@@ -77,7 +77,7 @@ export default function AuditPage() {
             <TableBody>
               {logs.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-gray-400 py-8">
+                  <TableCell colSpan={5} className="text-center text-slate-400 py-8">
                     暂无记录
                   </TableCell>
                 </TableRow>
@@ -87,14 +87,14 @@ export default function AuditPage() {
                 return (
                   <TableRow key={log.id}>
                     <TableCell className="font-medium">{log.user?.username}</TableCell>
-                    <TableCell className="text-sm text-gray-500">
+                    <TableCell className="text-sm text-slate-500">
                       {new Date(log.createdAt).toLocaleString('zh-CN')}
                     </TableCell>
                     <TableCell>
                       <Badge variant={a.variant}>{a.label}</Badge>
                     </TableCell>
                     <TableCell>{log.targetType}</TableCell>
-                    <TableCell className="text-xs text-gray-400 max-w-40 truncate">
+                    <TableCell className="text-xs text-slate-400 max-w-40 truncate">
                       {log.changes ? JSON.stringify(log.changes).slice(0, 80) : '-'}
                     </TableCell>
                   </TableRow>
@@ -105,7 +105,7 @@ export default function AuditPage() {
 
           {totalPages > 1 && (
             <div className="flex items-center justify-between mt-4">
-              <span className="text-sm text-gray-500">第 {page} / {totalPages} 页</span>
+              <span className="text-sm text-slate-500">第 {page} / {totalPages} 页</span>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage(p => p - 1)}>
                   <ChevronLeft className="h-4 w-4" /> 上一页

@@ -75,7 +75,7 @@ export default function LibraryPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">参数库</h1>
+        <h1 className="text-2xl font-bold text-slate-900">参数库</h1>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
             <Download className="h-4 w-4 mr-1" />
@@ -89,7 +89,7 @@ export default function LibraryPage() {
       </div>
 
       <div className="relative max-w-sm mb-4">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
         <Input
           placeholder="搜索论文名或模板名..."
           value={search}
@@ -100,8 +100,8 @@ export default function LibraryPage() {
 
       {params.length === 0 ? (
         <Card>
-          <CardContent className="py-12 text-center text-gray-400">
-            <Search className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+          <CardContent className="py-12 text-center text-slate-400">
+            <Search className="h-12 w-12 mx-auto mb-3 text-slate-300" />
             <p>参数库为空，审核通过的参数将显示在这里</p>
           </CardContent>
         </Card>
@@ -131,7 +131,7 @@ export default function LibraryPage() {
                     ))}
                     <TableCell>
                       <Button variant="ghost" size="sm" onClick={() => handleArchive(p.id)}>
-                        <Archive className="h-3 w-3 text-gray-400" />
+                        <Archive className="h-3 w-3 text-slate-400" />
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -142,7 +142,7 @@ export default function LibraryPage() {
 
           {totalPages > 1 && (
             <div className="flex items-center justify-between mt-4">
-              <span className="text-sm text-gray-500">第 {page} / {totalPages} 页</span>
+              <span className="text-sm text-slate-500">第 {page} / {totalPages} 页</span>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage(p => p - 1)}>
                   <ChevronLeft className="h-4 w-4" /> 上一页

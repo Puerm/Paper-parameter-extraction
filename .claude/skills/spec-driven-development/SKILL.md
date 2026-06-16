@@ -1,13 +1,90 @@
 ---
 name: spec-driven-development
 description: Use for SPEC-driven features or POCs that need scoped requirements, acceptance criteria, task plans, traceability, and verification evidence.
+version: "0.1.0"
+tags: ["spec", "planning", "poc", "workflow"]
 ---
 
-# Spec Driven Development
+# SPEC 驱动开发流程
 
-This is a native Claude Code skill wrapper for the retained Team Vibe source:
+## 目标
 
-- `../workflows/spec-driven-development.md`
+把"要做什么、为什么做、怎么验收、什么不做"写清楚，再进入实现。适用于新项目、POC、复杂功能、跨模块改造和高风险需求。
 
-Load that file as the direct reference and follow its SPEC-driven workflow. The
-source markdown remains the Team Vibe authority for this skill.
+## 何时使用
+
+- 新项目、POC、复杂功能、跨模块改造或高风险需求。
+- 用户要求先写 SPEC、task plan、验收用例或数据契约。
+- 需求存在明显范围、数据、权限、安全或验收不确定性。
+
+## 何时不用
+
+- 小修复、单文件调整、已具备清晰验收标准的实现任务。
+- 用户只要求代码审查、测试生成或文档整理。
+- 已有 SPEC 和 task plan 足够清楚；此时进入实现或 Harness 流程。
+
+## 第一步
+
+先判断当前任务是"规划"还是"实现"。如果是规划，只产出规格、计划、数据契约和验收用例；不要写业务代码、创建业务目录、安装依赖或运行实现型测试。
+
+## 阶段 1：确认目标和边界
+
+1. 说明业务问题。
+2. 说明目标用户或调用方。
+3. 说明输入数据、处理动作和输出结果。
+4. 定义第一阶段 POC 要验证的能力。
+5. 明确 out of scope。
+6. 列出仍需业务方确认的问题。
+
+## 阶段 2：准备核心文档
+
+建议文档：
+
+- `docs/spec.md`：需求、范围、验收标准和待确认问题。
+- `docs/task-plan.md`：任务拆解、依赖、顺序和检查点。
+- `docs/data-schema.md`：输入输出数据契约、字段含义和示例。
+- `docs/poc-eval-cases.md`：POC 验收用例。
+- `docs/architecture.md`：架构设计和关键权衡。
+- `docs/review-notes.md`：审查发现和决策记录。
+
+## 阶段 3：设计验证方式
+
+1. 把"功能可用"转化为验收 case。
+2. 每个 case 写清楚输入、预期输出、失败标准和证据。
+3. 对权限、审计、安全、数据边界和人工复核流程单独列 case。
+4. 在实现前确认哪些验证会自动化，哪些需要人工确认。
+
+## 阶段 4：增量实现
+
+本阶段仅在用户明确要求继续实现，或 SPEC 和验收标准已经确认后进入。
+
+1. 按依赖顺序实现模块。
+2. 每次提交聚焦一个模块或一条链路。
+3. 发现可复用实现模式或重复问题时，考虑更新项目 Skill 或项目 `CLAUDE.md`。
+4. 不在一个提交里混合规划、重构、业务实现和文档大改。
+
+## 输出格式
+
+```markdown
+## POC 目标
+
+## 已确认范围
+
+## 不在当前阶段实现
+
+## 后续任务拆分
+
+## 验收用例
+
+## 待确认问题
+
+## 下一步
+```
+
+## 质量门槛
+
+- 规格、计划、验收和归档的追溯要求详见 `rules/universal/spec-plan-traceability.mdc`。
+- 没有验收标准，不进入实现。
+- 没有数据契约，不实现跨系统或跨模块接口。
+- 没有 out of scope，不认为范围已冻结。
+- 高风险需求必须先定义安全、权限、审计和回滚边界。

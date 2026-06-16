@@ -47,7 +47,7 @@ export default function NotificationsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">通知中心</h1>
+        <h1 className="text-2xl font-bold text-slate-900">通知中心</h1>
         {unread > 0 && (
           <Button variant="outline" size="sm" onClick={handleMarkAll}>
             <CheckCheck className="h-4 w-4 mr-1" />
@@ -58,8 +58,8 @@ export default function NotificationsPage() {
 
       {notifications.length === 0 ? (
         <Card>
-          <CardContent className="py-12 text-center text-gray-400">
-            <Bell className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+          <CardContent className="py-12 text-center text-slate-400">
+            <Bell className="h-12 w-12 mx-auto mb-3 text-slate-300" />
             <p>暂无通知</p>
           </CardContent>
         </Card>
@@ -68,14 +68,14 @@ export default function NotificationsPage() {
           {notifications.map(n => {
             const Icon = TYPE_ICON[n.type] || Bell
             return (
-              <Card key={n.id} className={`transition-colors ${!n.isRead ? 'bg-blue-50/50 border-blue-200' : ''}`}>
+              <Card key={n.id} className={`transition-colors ${!n.isRead ? 'bg-indigo-50/50 border-indigo-200' : ''}`}>
                 <CardContent className="p-4 flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${!n.isRead ? 'bg-blue-100' : 'bg-gray-100'}`}>
-                    <Icon className={`h-4 w-4 ${!n.isRead ? 'text-blue-600' : 'text-gray-400'}`} />
+                  <div className={`p-2 rounded-lg ${!n.isRead ? 'bg-indigo-100' : 'bg-slate-100'}`}>
+                    <Icon className={`h-4 w-4 ${!n.isRead ? 'text-indigo-600' : 'text-slate-400'}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm ${!n.isRead ? 'font-medium' : 'text-gray-500'}`}>{n.message}</p>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className={`text-sm ${!n.isRead ? 'font-medium text-slate-800' : 'text-slate-500'}`}>{n.message}</p>
+                    <p className="text-xs text-slate-400 mt-1">
                       {new Date(n.createdAt).toLocaleString('zh-CN')}
                     </p>
                   </div>

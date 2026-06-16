@@ -11,6 +11,7 @@ skill by default.
 - `skills/executing-plans/SKILL.md` - Execute an approved plan with checkpoints.
 - `skills/verification-before-completion/SKILL.md` - Final proof before claiming completion.
 - `skills/requesting-code-review/SKILL.md` - Ask for a focused code review before merge or handoff.
+- `skills/find-skills/SKILL.md` - Discover and install skills from the open agent skills ecosystem.
 
 ## External Claude Code Skills
 
@@ -35,9 +36,18 @@ Source: `obra/superpowers`
 ### UI, Testing, Presentations, and Codebase Maps
 
 - `skills/ui-ux-pro-max/SKILL.md` - UI/UX design intelligence, design systems, accessibility, layout, typography, and UI review.
+- `skills/frontend-design/SKILL.md` - Distinctive, production-grade frontend interfaces with bold aesthetic direction. Complements ui-ux-pro-max with creative design thinking.
 - `skills/webapp-testing/SKILL.md` - Official Anthropic Playwright workflow for local webapp testing.
 - `skills/pptx/SKILL.md` - Official Anthropic PPTX skill for reading, creating, editing, and visually verifying decks.
 - `skills/graphify/SKILL.md` - Build/query a project knowledge graph for architecture and codebase questions.
+
+### Skill Discovery
+
+- `skills/find-skills/SKILL.md` - Search and install skills from the open agent skills ecosystem via `npx skills`.
+
+### Communication Efficiency
+
+- `skills/caveman/SKILL.md` - Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Supports lite/full/ultra/wenyan intensity levels.
 
 ## Claude Code Plugins
 
@@ -46,15 +56,10 @@ or invoke them through Claude Code plugin commands.
 
 - `plugins/code-review/` - Anthropic official code-review plugin. Prefer `/code-review` for PR review automation.
 
-## Local Claude Code Tooling
-
-- `.claude/` - GSD Core from `open-gsd/gsd-core`, installed with `npx @opengsd/gsd-core@latest --claude --local`. Use `/gsd-*` slash commands instead of loading it with `@skill`.
-
 ## Retained Team Vibe Skills
 
-These remain because they encode Team Vibe-specific conventions or project
-governance not fully replaced by external skills. Load the native wrapper skill;
-the wrapper then references the retained source markdown file.
+These self-contained skills encode Team Vibe-specific conventions, review
+criteria, workflows, and templates not covered by external skills.
 
 ### Code Review
 

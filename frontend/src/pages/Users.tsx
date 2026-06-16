@@ -65,9 +65,9 @@ export default function UsersPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">用户管理</h1>
+        <h1 className="text-2xl font-bold text-slate-900">用户管理</h1>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground h-10 px-4 py-2 text-sm font-medium hover:bg-primary/90">
+          <DialogTrigger className="inline-flex items-center justify-center rounded-lg bg-[#4F46E5] text-white h-10 px-4 py-2 text-sm font-medium hover:bg-[#4338CA] active:scale-[0.98] transition-all">
             <Plus className="h-4 w-4 mr-2" />
             创建用户
           </DialogTrigger>
@@ -138,7 +138,7 @@ export default function UsersPage() {
                         {roleInfo.label}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-sm text-gray-500">
+                    <TableCell className="text-sm text-slate-500">
                       {new Date(u.createdAt).toLocaleDateString('zh-CN')}
                     </TableCell>
                     <TableCell>
