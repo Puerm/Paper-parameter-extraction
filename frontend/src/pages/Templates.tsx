@@ -68,17 +68,17 @@ export default function TemplatesPage() {
     try {
       if (editing) {
         await api.put(`/templates/${editing.id}`, form)
-        toast.success('模板已更新')
+        toast.success('模板已更新 ✅')
       } else {
         await api.post('/templates', form)
-        toast.success('模板已创建')
+        toast.success('模板已创建 ✅ 比写论文快多了')
       }
       setOpen(false)
       setEditing(null)
       setForm({ name: '', yamlContent: EXAMPLE_YAML })
       fetch()
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : '操作失败')
+      toast.error('翻车了 🫠 要不你再试一次？')
     } finally {
       setSaving(false)
     }
@@ -93,22 +93,22 @@ export default function TemplatesPage() {
   const handleClone = async (id: string) => {
     try {
       await api.post(`/templates/${id}/clone`)
-      toast.success('模板已克隆')
+      toast.success('克隆成功 🧬 比 reviewer 写 review 快多了')
       fetch()
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : '操作失败')
+      toast.error('翻车了 🫠 要不你再试一次？')
     }
   }
 
   const handleDelete = async (t: Template) => {
-    if (!confirm(`确定删除模板「${t.name}」？`)) return
+    if (!confirm(`确定删除模板「${t.name}」？删了 reviewer 也救不回来 😬`)) return
     try {
       await api.delete(`/templates/${t.id}`)
-      toast.success('模板已删除')
+      toast.success('已删除 🗑️ 干干净净')
       if (activeTemplate?.id === t.id) setActiveTemplate(null)
       fetch()
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : '操作失败')
+      toast.error('翻车了 🫠 要不你再试一次？')
     }
   }
 
@@ -223,9 +223,9 @@ export default function TemplatesPage() {
       {templates.length === 0 ? (
         <Card className="border-dashed border-slate-200 bg-white/70">
           <CardContent className="py-16 text-center">
-            <Layers className="mx-auto mb-3 h-12 w-12 text-slate-200" />
-            <p className="mb-2 text-slate-500">暂无模板</p>
-            <p className="mb-4 text-sm text-slate-400">创建一个模板来定义需要从论文中提取的参数字段</p>
+            <Layers className="mx-auto mb-3 h-12 w-12 text-slate-300" />
+            <p className="mb-1 text-slate-500 font-medium">还没有模板呢 🧑‍🔬</p>
+            <p className="mb-4 text-sm text-slate-400">去建一个吧，比写论文简单多了</p>
             {isAdmin && (
               <Button variant="outline" size="sm" onClick={openCreate}>
                 <Plus className="mr-1 h-4 w-4" />

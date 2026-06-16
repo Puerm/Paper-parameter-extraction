@@ -115,8 +115,9 @@ export default function PapersPage() {
         <TableBody>
           {papers.length === 0 && (
             <TableRow>
-              <TableCell colSpan={7} className="text-center text-gray-400 py-8">
-                暂无论文
+              <TableCell colSpan={7} className="text-center text-slate-400 py-12">
+                <p className="mb-1 font-medium text-slate-500">一篇论文都没有… 📄</p>
+                <p className="text-sm text-slate-400">是时候治治你的拖延症了，上传第一篇吧</p>
               </TableCell>
             </TableRow>
           )}

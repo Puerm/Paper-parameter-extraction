@@ -26,7 +26,7 @@ export default function DashboardPage() {
     api.get('/dashboard/trends').then(setTrends).catch(() => {})
   }, [])
 
-  if (!stats) return <div className="p-8 text-gray-400">加载中...</div>
+  if (!stats) return <div className="p-8 text-slate-400 text-center"><p className="text-sm">正在拼命解析… 咖啡已经准备好了 ☕</p></div>
 
   const cards = [
     { label: '论文总数', value: stats.totalPapers, icon: FileText, color: 'text-blue-600', bg: 'bg-blue-50' },
@@ -71,7 +71,7 @@ export default function DashboardPage() {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据</div>
+              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据 📊</div>
             )}
           </CardContent>
         </Card>
@@ -92,7 +92,7 @@ export default function DashboardPage() {
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据</div>
+              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据 📊</div>
             )}
           </CardContent>
         </Card>
@@ -113,7 +113,7 @@ export default function DashboardPage() {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据</div>
+              <div className="h-48 flex items-center justify-center text-gray-400 text-sm">暂无数据 📊</div>
             )}
           </CardContent>
         </Card>

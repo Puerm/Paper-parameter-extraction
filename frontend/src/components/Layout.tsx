@@ -51,10 +51,10 @@ function NavItem({ to, icon: Icon, label, badge }: { to: string; icon: React.Ele
   return (
     <Link to={to}>
       <div
-        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all duration-150
+        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all duration-150 border-l-2
           ${active
-            ? 'bg-blue-50 text-blue-700 font-medium border-l-2 border-blue-600 shadow-sm'
-            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 border-l-2 border-transparent'
+            ? 'text-white bg-white/15 border-l-[#F472B6] shadow-sm'
+            : 'text-white/70 hover:text-white hover:bg-white/10 border-l-transparent'
           }`}
       >
         <Icon className="h-4 w-4 flex-shrink-0" />
@@ -92,14 +92,14 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <aside className="fixed left-0 top-0 h-full w-60 bg-white border-r border-slate-200 flex flex-col shadow-sm">
+      <aside className="fixed left-0 top-0 h-full w-60 bg-gradient-to-b from-[#6366F1] to-[#8B5CF6] flex flex-col shadow-lg">
         {/* Brand */}
-        <div className="px-5 py-4 border-b border-slate-100">
+        <div className="px-5 py-4 border-b border-white/20">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-lg bg-white/20 flex items-center justify-center backdrop-blur-sm">
               <FlaskConical className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-slate-900 tracking-tight">PaperParams</span>
+            <span className="text-lg font-bold text-white tracking-tight">PaperParams</span>
           </Link>
         </div>
 
@@ -118,7 +118,7 @@ export default function Layout() {
           {isAdmin && (
             <>
               <div className="pt-4 pb-1 px-3">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">管理</span>
+                <span className="text-xs font-semibold text-white/50 uppercase tracking-wider">管理</span>
               </div>
               {ADMIN_ITEMS.map(item => (
                 <NavItem key={item.to} to={item.to} icon={item.icon} label={item.label} />
@@ -128,18 +128,18 @@ export default function Layout() {
         </nav>
 
         {/* User footer */}
-        <div className="p-3 border-t border-slate-200">
+        <div className="p-3 border-t border-white/20">
           <DropdownMenu>
             <DropdownMenuTrigger className="w-full">
-              <div className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors w-full cursor-pointer">
+              <div className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/10 transition-colors w-full cursor-pointer">
                 <Avatar className="h-7 w-7">
-                  <AvatarFallback className="bg-blue-100 text-blue-700 text-xs font-medium">
+                  <AvatarFallback className="bg-white/20 text-white text-xs font-medium">
                     {user?.username?.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-sm font-medium text-slate-700 truncate">{user?.username}</p>
-                  <p className="text-xs text-slate-400">{roleLabel}</p>
+                  <p className="text-sm font-medium text-white/90 truncate">{user?.username}</p>
+                  <p className="text-xs text-white/60">{roleLabel}</p>
                 </div>
               </div>
             </DropdownMenuTrigger>
